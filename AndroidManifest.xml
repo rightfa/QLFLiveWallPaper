@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.qlfsoft.app.livewallpaper"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data android:name="BaiduMobAd_APP_ID" android:value="fee78396" /> 
+		<meta-data android:name="BaiduMobAd_APP_SEC" android:value="fee78396_13b50d6f" />
+		<activity android:name="com.baidu.mobads.AppActivity" 
+		    android:configChanges="keyboard|keyboardHidden|orientation" />
+		<activity android:name="com.baidu.mobads.appoffers.OffersActivity" 
+		    android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.qlfsoft.app.livewallpaper.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+
+        </activity>
+         <service android:label="@string/app_name"
+            android:name="com.qlfsoft.app.livewallpaper.LiveWallPaper" android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data android:name="android.service.wallpaper"
+                android:resource="@xml/livepaper" />
+        </service>
+        <activity android:name="com.qlfsoft.app.livewallpaper.LiveWallpaperSetting" 
+		android:label="@string/wallpaper_settings" 
+		android:theme="@android:style/Theme.Light.WallpaperSettings"
+		android:exported="true"/>
+        <activity android:name="main_tab_Activity">
+                        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="设置">
+    <EditTextPreference android:dialogTitle="时间间隔（以秒为单位）" android:title="两幅图片的时间间隔" android:summary="请输入数字" android:key="internal" />
+    
+</PreferenceScreen>
