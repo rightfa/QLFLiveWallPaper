@@ -1,8 +1,10 @@
 package com.qlfsoft.app.livewallpaper;
 
 import com.qlfsoft.app.common.BaseActivity;
+import com.qlfsoft.app.livewallpaper.home.HomeActivity;
 
 import android.app.Activity;
+import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,16 +22,19 @@ public class main_tab_Activity extends BaseActivity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_tab);
-		initView();
+		initView(savedInstanceState);
 	}
 	
-	private void initView()
+	@SuppressWarnings("deprecation")
+	private void initView(Bundle state)
 	{
 		tabhost = (TabHost) findViewById(android.R.id.tabhost);
-		tabhost.setup();
 		int[] tabImages = new int[]{R.drawable.main_tab_1,R.drawable.main_tab_2,R.drawable.main_tab_3,R.drawable.main_tab_4};
 		String[] tabNames = getResources().getStringArray(R.array.main_tabItem);
 		String[] tabIds = new String[]{"tab1","tab2","tab3","tab4"};
+		LocalActivityManager localActivityManager = new LocalActivityManager(this,false);
+		localActivityManager.dispatchCreate(state);
+		tabhost.setup(localActivityManager);
 		Intent intent = new Intent();
 		for(int i = 0; i < 4;i++)
 		{
@@ -44,7 +49,8 @@ public class main_tab_Activity extends BaseActivity {
 			case 3:
 				break;
 			}
-			tabhost.addTab(tabhost.newTabSpec(tabIds[i]).setIndicator(getTabItemView(tabImages[i],tabNames[i])).setContent(R.id.tab2));
+			intent.setClass(this, HomeActivity.class);
+			tabhost.addTab(tabhost.newTabSpec(tabIds[i]).setIndicator(getTabItemView(tabImages[i],tabNames[i])).setContent(intent));
 		}
 	}
 	
