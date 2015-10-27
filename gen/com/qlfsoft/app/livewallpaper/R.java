@@ -537,7 +537,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int white_tab_indicator=0x7f020088;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0019;
+        public static final int action_settings=0x7f0a001a;
         public static final int activity_home_indicator=0x7f0a0005;
         public static final int activity_home_pager=0x7f0a0006;
         public static final int bottom=0x7f0a0003;
@@ -552,12 +552,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int drop_down_list_header_progress_bar=0x7f0a000f;
         public static final int drop_down_list_header_second_text=0x7f0a0013;
         public static final int gallery1=0x7f0a0007;
+        public static final int gridView1=0x7f0a0019;
         public static final int linearLayout1=0x7f0a0008;
         public static final int ll_main_tabItem=0x7f0a0015;
         public static final int main_tabItem_ivIcon=0x7f0a0016;
         public static final int main_tabItem_tvName=0x7f0a0017;
         public static final int none=0x7f0a0000;
-        public static final int recommand_listview=0x7f0a0018;
+        public static final int reccommand_gv=0x7f0a0018;
         public static final int tab2=0x7f0a0014;
         public static final int top=0x7f0a0004;
         public static final int triangle=0x7f0a0001;
@@ -579,6 +580,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int main_tab=0x7f030004;
         public static final int main_tabitem=0x7f030005;
         public static final int recommand_fragment=0x7f030006;
+        public static final int recommand_lv_item=0x7f030007;
     }
     public static final class menu {
         public static final int home=0x7f0d0000;

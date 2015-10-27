@@ -23,12 +23,15 @@ import android.support.v4.app.Fragment;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 
 public class RecommandFragment extends Fragment {
 
 	protected static final int RECEIVEXML = 0;
-	private DropDownListView recommand_listview;
+	private GridView recommand_gv;
 	private List<ImageEntity> images;
 	public static String XMLURL = "http://115.159.26.138/photo/image/images/photoXML.xml";
 	@Override
@@ -48,7 +51,10 @@ public class RecommandFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.recommand_fragment, null);
-		recommand_listview = (DropDownListView) view.findViewById(R.id.recommand_listview);
+		recommand_gv = (GridView) view.findViewById(R.id.reccommand_gv);
+		
+		
+		
 		new Thread(new HttpImageThread()).start();
 		return view;
 	}
@@ -133,8 +139,38 @@ public class RecommandFragment extends Fragment {
 			switch(msg.what)
 			{
 			case RECEIVEXML:
+				
 				break;
 			}
 		}
 	};
+	
+	
+	private class RecommandGVAdapter extends BaseAdapter{
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return images.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return images.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 }
