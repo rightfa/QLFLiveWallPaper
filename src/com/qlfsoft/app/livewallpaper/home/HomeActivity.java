@@ -34,7 +34,7 @@ public class HomeActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int arg0) {
-			 return HomeActivityFragment.newInstance("hello");
+			 return new RecommandFragment();
 		}
 
 		@Override
