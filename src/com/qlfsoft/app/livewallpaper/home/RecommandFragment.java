@@ -25,6 +25,7 @@ import cn.trinea.android.common.view.DropDownListView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -76,7 +79,16 @@ public class RecommandFragment extends Fragment {
 		
 		adapter = new RecommandGVAdapter(inflater);
 		recommand_gv.setAdapter(adapter);
-		
+		recommand_gv.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				String imgPath = images.get(position).getImagePath();
+				
+			}
+			
+		});
 		new Thread(new HttpImageThread()).start();
 		return view;
 	}
@@ -225,7 +237,12 @@ public class RecommandFragment extends Fragment {
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(imgSide, imgSide);
 			holder.imageView.setLayoutParams(params);
 			//holder.imageView.setBackgroundResource(R.drawable.a01);
-			ImageLoader.getInstance().displayImage(images.get(position).getImagePath(), holder.imageView, options, null,null);
+			String imgPath = images.get(position).getImagePath();
+			int lastPathIndex = imgPath.lastIndexOf("/");
+			String sumPath = imgPath.substring(0,lastPathIndex) + "/summary/" + imgPath.substring(lastPathIndex + 1);
+			Log.i("lastPathIndex", String.valueOf(lastPathIndex));
+			Log.i("sumPath",sumPath);
+			ImageLoader.getInstance().displayImage(sumPath, holder.imageView, options, null,null);
 			return convertView;
 		}
 		
