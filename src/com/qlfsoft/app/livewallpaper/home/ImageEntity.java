@@ -1,9 +1,9 @@
 package com.qlfsoft.app.livewallpaper.home;
 
 public class ImageEntity {
-	private String imagePath;
-	private String imageClass;
-	private boolean isRecommand;
+	private String imagePath;//Â·¾¶
+	private String imageClass;//·ÖÀà
+	private int id;//Id
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -16,12 +16,11 @@ public class ImageEntity {
 	public void setImageClass(String imageClass) {
 		this.imageClass = imageClass;
 	}
-	public boolean isRecommand() {
-		return isRecommand;
+	public int getId() {
+		return id;
 	}
-	public void setRecommand(boolean isRecommand) {
-		this.isRecommand = isRecommand;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
 	
 }

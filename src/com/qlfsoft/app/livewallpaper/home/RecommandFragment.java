@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,25 +24,36 @@ import cn.trinea.android.common.util.HttpUtils;
 import cn.trinea.android.common.view.DropDownListView;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class RecommandFragment extends Fragment {
 
 	protected static final int RECEIVEXML = 0;
 	private GridView recommand_gv;
 	private List<ImageEntity> images;
-	public static String XMLURL = "http://115.159.26.138/photo/image/images/photoXML.xml";
+	public static String XMLURL = "http://115.159.26.138/photo/xml/photos.xml";
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+	}
+
 	private RecommandGVAdapter adapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +73,7 @@ public class RecommandFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.recommand_fragment, null);
 		recommand_gv = (GridView) view.findViewById(R.id.reccommand_gv);
+		
 		adapter = new RecommandGVAdapter(inflater);
 		recommand_gv.setAdapter(adapter);
 		
@@ -103,23 +116,26 @@ public class RecommandFragment extends Fragment {
 						entitys = new ArrayList<ImageEntity>();
 						break;
 					case XmlPullParser.START_TAG:
-						if(parser.getName().equals("image"))
+						if(parser.getName().equals("Table"))
 						{
 							entity = new ImageEntity();
-						}else if(parser.getName().equals("path"))
+						}else if(parser.getName().equals("FilePath"))
 						{
+							parser.next();
 							entity.setImagePath(parser.getText());
-						}else if(parser.getName().equals("class"))
+						}else if(parser.getName().equals("ClassId"))
 						{
+							parser.next();
 							entity.setImageClass(parser.getText());
-						}else if(parser.getName().equals("recommand"))
+						}else if(parser.getName().equals("Id"))
 						{
-							boolean isRecommand = (Integer.parseInt(parser.getText()) == 1)? true: false;
-							entity.setRecommand(isRecommand);
+				
+							int id = Integer.valueOf(parser.nextText());
+							entity.setId(id);
 						}
 							break;
 					case XmlPullParser.END_TAG:
-						if(parser.getName().equals("image"))
+						if(parser.getName().equals("Table"))
 						{
 							entitys.add(entity);
 							entity = null;
@@ -159,6 +175,7 @@ public class RecommandFragment extends Fragment {
 
 		private LayoutInflater inflater;
 		private DisplayImageOptions options;
+		private int imgSide;
 		public RecommandGVAdapter(LayoutInflater inflater)
 		{
 			this.inflater = inflater;
@@ -171,6 +188,10 @@ public class RecommandFragment extends Fragment {
 				.considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.build();
+			WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+			int sWidth = wm.getDefaultDisplay().getWidth();
+			int sHeight = wm.getDefaultDisplay().getHeight();
+			imgSide = (sWidth > sHeight) ? (sHeight/2): (sWidth/2);
 		}
 		@Override
 		public int getCount() {
@@ -201,24 +222,10 @@ public class RecommandFragment extends Fragment {
 				holder.imageView =  (ImageView) convertView.findViewById(R.id.recommand_item_iv);
 				convertView.setTag(holder);
 			}
-			ImageLoader.getInstance()
-			.displayImage(images.get(position).getImagePath(), holder.imageView, options, new SimpleImageLoadingListener() {
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-				}
-
-				@Override
-				public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-				}
-
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				}
-			}, new ImageLoadingProgressListener() {
-				@Override
-				public void onProgressUpdate(String imageUri, View view, int current, int total) {
-				}
-			});
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(imgSide, imgSide);
+			holder.imageView.setLayoutParams(params);
+			//holder.imageView.setBackgroundResource(R.drawable.a01);
+			ImageLoader.getInstance().displayImage(images.get(position).getImagePath(), holder.imageView, options, null,null);
 			return convertView;
 		}
 		
