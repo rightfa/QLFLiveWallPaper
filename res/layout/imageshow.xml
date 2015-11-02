@@ -8,13 +8,14 @@
         android:id="@+id/horizontalScrollView1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center" >
+        android:layout_gravity="center"
+        android:overScrollMode="never" >
 
         <ImageView
             android:id="@+id/imgshow_iv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:src="@drawable/a01" />
 
     </HorizontalScrollView>
@@ -24,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="70dp"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"

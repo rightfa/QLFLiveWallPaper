@@ -23,6 +23,7 @@ import cn.trinea.android.common.entity.HttpResponse;
 import cn.trinea.android.common.util.HttpUtils;
 import cn.trinea.android.common.view.DropDownListView;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Path;
@@ -85,7 +86,9 @@ public class RecommandFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				String imgPath = images.get(position).getImagePath();
-				
+				Intent intent = new Intent(getActivity(),ShowImageActivity.class);
+				intent.putExtra(getString(R.string.IMAGEURL), imgPath);
+				startActivity(intent);
 			}
 			
 		});
@@ -240,8 +243,6 @@ public class RecommandFragment extends Fragment {
 			String imgPath = images.get(position).getImagePath();
 			int lastPathIndex = imgPath.lastIndexOf("/");
 			String sumPath = imgPath.substring(0,lastPathIndex) + "/summary/" + imgPath.substring(lastPathIndex + 1);
-			Log.i("lastPathIndex", String.valueOf(lastPathIndex));
-			Log.i("sumPath",sumPath);
 			ImageLoader.getInstance().displayImage(sumPath, holder.imageView, options, null,null);
 			return convertView;
 		}
