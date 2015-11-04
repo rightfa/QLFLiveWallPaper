@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.qlfsoft.app.common.RemoteXMLS;
 import com.qlfsoft.app.livewallpaper.R;
 
 import cn.trinea.android.common.entity.HttpResponse;
@@ -51,7 +52,7 @@ public class RecommandFragment extends Fragment {
 	protected static final int RECEIVEXML = 0;
 	private GridView recommand_gv;
 	private List<ImageEntity> images;
-	public static String XMLURL = "http://115.159.26.138/photo/xml/photos.xml";
+	public static String XMLURL = RemoteXMLS.RECOMMANDPHOTOS;
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

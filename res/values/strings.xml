@@ -9,15 +9,21 @@
     <string name="btn_value3">设   置</string>
 
     <string-array name="png_names">
-        <item>爱情</item>
         <item>风景</item>
-        <item>黑暗</item>
-        <item>卡通</item>
-        <item>宁静</item>
-        <item>清新</item>
         <item>唯美</item>
-        <item>星座</item>
-        <item>字母</item>
+        <item>动漫</item>
+        <item>汽车</item>
+        <item>美女</item>
+        <item>美食</item>
+        <item>情感</item>
+        <item>文字</item>
+        <item>明星</item>
+        <item>城市</item>
+        <item>动物</item>
+        <item>纯色</item>
+        <item>影视</item>
+        <item>男人</item>
+        <item>体育</item>
     </string-array>
 
     <string name="lock_msg">本程序未解锁，除默认壁纸外其他壁纸不能使用，请点击一键解锁解锁本壁纸，解锁后所有壁纸都可使用！</string>

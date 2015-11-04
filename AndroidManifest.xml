@@ -60,7 +60,8 @@
             android:exported="true"
             android:label="@string/wallpaper_settings"
             android:theme="@android:style/Theme.Light.WallpaperSettings" />
-        <activity android:name="com.qlfsoft.app.livewallpaper.main_tab_Activity" >
+        <activity android:name="com.qlfsoft.app.livewallpaper.main_tab_Activity" 
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

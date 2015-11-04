@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.qlfsoft.app.livewallpaper.R;
 
 import android.app.Activity;
@@ -22,12 +24,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class ShowImageActivity extends Activity implements OnClickListener {
 
 	private ImageView imgshow_iv;
 	private Button imgshow_btn;
+	private LinearLayout imgshow_loading;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +42,7 @@ public class ShowImageActivity extends Activity implements OnClickListener {
 		String filePath = intent.getStringExtra(getString(R.string.IMAGEURL));
 		imgshow_iv = (ImageView) findViewById(R.id.imgshow_iv);
 		imgshow_btn = (Button) findViewById(R.id.imgshow_btn);
+		imgshow_loading = (LinearLayout) findViewById(R.id.imgshow_loading);
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.ic_stub_long)
@@ -48,9 +53,24 @@ public class ShowImageActivity extends Activity implements OnClickListener {
 		.considerExifParams(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)
 		.build();
-		ImageLoader.getInstance().displayImage(filePath, imgshow_iv, options, null,null);
-		imgshow_iv.setOnClickListener(this);
+		ImageLoader.getInstance().displayImage(filePath, imgshow_iv, options, new SimpleImageLoadingListener(){
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				imgshow_loading.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+				
+			}
+
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				imgshow_loading.setVisibility(View.GONE);
+			}
+		},null);
 		
+		imgshow_iv.setOnClickListener(this);
 		imgshow_btn.setOnClickListener(this);
 	}
 	@Override
