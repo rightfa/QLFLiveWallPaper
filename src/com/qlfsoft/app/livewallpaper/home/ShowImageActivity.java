@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.qlfsoft.app.livewallpaper.R;
 
@@ -45,13 +47,14 @@ public class ShowImageActivity extends Activity implements OnClickListener {
 		imgshow_loading = (LinearLayout) findViewById(R.id.imgshow_loading);
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.ic_stub_long)
-		.showImageForEmptyUri(R.drawable.ic_empty_long)
-		.showImageOnFail(R.drawable.ic_error_long)
-		.cacheInMemory(true)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error)
+		.resetViewBeforeLoading(true)
 		.cacheOnDisk(true)
-		.considerExifParams(true)
+	//	.imageScaleType(ImageScaleType.EXACTLY)
 		.bitmapConfig(Bitmap.Config.RGB_565)
+		.considerExifParams(true)
+		.displayer(new FadeInBitmapDisplayer(300))
 		.build();
 		ImageLoader.getInstance().displayImage(filePath, imgshow_iv, options, new SimpleImageLoadingListener(){
 			@Override
